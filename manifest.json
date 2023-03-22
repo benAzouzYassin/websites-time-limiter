@@ -1,0 +1,24 @@
+{
+  "name": "Anti distraction",
+  "version": "1.0.0",
+  "description": "close the tabs causing distration to the user.",
+  "manifest_version": 3,
+  "author": "Yassine Ben Azouz",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Anti distraction"
+  },
+  "options_ui": {
+    "page": "index.html"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "notifications",
+    "background",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "./background.js"
+  }
+}
