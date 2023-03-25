@@ -1,7 +1,10 @@
 body {
-  background-color: rgb(185, 185, 185);
-  padding-left: 100px;
-  padding-right: 100px;
+  display: flex;
+  flex-direction: column;
+}
+h1 {
+  align-self: center;
+  text-align: center;
 }
 #blockBtn {
   width: 100px;
@@ -9,10 +12,15 @@ body {
   border-radius: 5px;
   padding: 5px;
   background-color: black;
+  align-self: center;
 }
 #blockBtn:hover {
   border: 1px solid rgb(171, 50, 50);
   transition: 0.2s ease-in-out;
   cursor: pointer;
   background-color: rgb(171, 50, 50);
+}
+.bannedLink {
+  display: flex;
+  flex-direction: row;
 }

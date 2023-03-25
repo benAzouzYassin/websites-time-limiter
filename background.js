@@ -1,11 +1,22 @@
 //this will be from the user and not hard coded
 
+function isBanned(url, bannedUrls) {
+    let banned = false
+    bannedUrls.forEach(element => {
+        if (url.startsWith(element)) {
+            banned = true
+        }
+    });
+    return banned
+
+}
 
 async function checkCurrent(currentUrl, id) {
     console.log("checking websit ...")
     const data = await chrome.storage.local.get(["bannedSites"]) ?? []
     const bannedUrls = await data.bannedSites
-    if (bannedUrls.indexOf(currentUrl) != -1) {
+
+    if (isBanned(currentUrl, bannedUrls)) {
         console.log("banned website")
         chrome.storage.local.get(["timeLeft"]).then(data => {
             if (data.timeLeft && data.timeLeft > 0) {
@@ -19,16 +30,25 @@ async function checkCurrent(currentUrl, id) {
                         }
                     })
                     if (data.timeLeft <= 0) {
-                        chrome.tabs.remove(id, () => {
-                            console.log('')
-                        })
-                        clearInterval(intervaleId)
+                        try {
+                            chrome.tabs.remove(id, () => {
+                                console.log('')
+                            })
+                            clearInterval(intervaleId)
+                        } catch (err) {
+
+                        }
+
                     }
                 }, 60000)
             } else {
-                chrome.tabs.remove(id, () => {
-                    console.log('')
-                })
+                try {
+                    chrome.tabs.remove(id, () => {
+                        console.log('')
+                    })
+                } catch (error) {
+
+                }
             }
         })
     }

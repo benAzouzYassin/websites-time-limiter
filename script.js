@@ -40,7 +40,7 @@ function loadBannedSites() {
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
             data.bannedSites.forEach((url) => {
-                blockedSites.innerHTML += `<li>${url}   <button class="unbanBtn">delete</button></li>`
+                blockedSites.innerHTML += `<li class="bannedLink">${url}<button class="unbanBtn">delete</button></li>`
             })
             //adding unban functionality to all the delete btns 
             const unbanButtons = document.getElementsByClassName("unbanBtn")
