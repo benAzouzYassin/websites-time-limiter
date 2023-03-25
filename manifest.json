@@ -1,7 +1,7 @@
 {
-  "name": "Anti distraction",
+  "name": "Time limiter",
   "version": "1.0.0",
-  "description": "close the tabs causing distration to the user.",
+  "description": "close the tabs causing distration to user.",
   "manifest_version": 3,
   "author": "Yassine Ben Azouz",
   "action": {
