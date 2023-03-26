@@ -1,4 +1,26 @@
-"use strict"
+body.onload = () => {
+    loadBannedSites()
+    loadTimeLeft()
+    renderTimeLimit()
+    chrome.storage.onChanged.addListener(function (changes, namespace) {
+        for (let key in changes) {
+            if (key === "timeLeft") {
+                let timeToClose = changes[key].newValue;
+                timeLeft.innerHTML = timeToClose
+            }
+        }
+    });
+
+}
+//saves time limit taken from user
+saveBtn.onclick = () => {
+    initialTime.innerHTML = timeLimit.value
+    chrome.storage.local.set({ "timeLimit": parseInt(timeLimit.value) })
+}
+//banning current website
+blockBtn.onclick = () => {
+    blockCurrent()
+}
 
 async function blockCurrent() {
     const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -13,9 +35,8 @@ async function blockCurrent() {
     chrome.runtime.reload()
 }
 
-
+//used on the unban button
 function unbanUrl(e) {
-    //updating the banned websites
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
             const toUnbanUrl = e.target.parentNode.innerText.split(" ")[0]
@@ -26,7 +47,6 @@ function unbanUrl(e) {
                     return true
                 }
             })
-            //update local storage with the new banned sites
             chrome.storage.local.set({ "bannedSites": newBannedList })
             chrome.runtime.reload()
         })
@@ -36,13 +56,11 @@ function unbanUrl(e) {
 }
 
 function loadBannedSites() {
-    //rendering the banned websites
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
             data.bannedSites.forEach((url) => {
                 blockedSites.innerHTML += `<li class="bannedLink">${url}<button class="unbanBtn">delete</button></li>`
             })
-            //adding unban functionality to all the delete btns 
             const unbanButtons = document.getElementsByClassName("unbanBtn")
             for (let i = 0; i < unbanButtons.length; i++) {
                 unbanButtons.item(i).addEventListener("click", unbanUrl)
@@ -57,9 +75,6 @@ function loadTimeLeft() {
     })
 }
 
-blockBtn.onclick = () => {
-    blockCurrent()
-}
 
 function renderTimeLimit() {
     chrome.storage.local.get(["timeLimit"]).then(data => {
@@ -75,23 +90,3 @@ function renderTimeLimit() {
 
 }
 
-body.onload = () => {
-    loadBannedSites()
-    loadTimeLeft()
-    renderTimeLimit()
-    chrome.storage.onChanged.addListener(function (changes, namespace) {
-        for (let key in changes) {
-            if (key === "timeLeft") {
-                let timeToClose = changes[key].newValue;
-                timeLeft.innerHTML = timeToClose
-            }
-        }
-    });
-
-}
-
-saveBtn.onclick = () => {
-    console.log(timeLimit.value)
-    initialTime.innerHTML = timeLimit.value
-    chrome.storage.local.set({ "timeLimit": parseInt(timeLimit.value) })
-}
