@@ -32,14 +32,15 @@ async function blockCurrent() {
         chrome.storage.local.set({ "bannedSites": bannedSites })
         chrome.tabs.reload(tabs[0].id);
     }
-    chrome.runtime.reload()
+    //chrome.runtime.reload()
 }
 
 //used on the unban button
 function unbanUrl(e) {
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
-            const toUnbanUrl = e.target.parentNode.innerText.split(" ")[0]
+            const toUnbanUrl = e.target.parentNode.innerText.split("\n")[0]
+            console.log(toUnbanUrl)
             const newBannedList = data.bannedSites.filter((value) => {
                 if (value == toUnbanUrl) {
                     return false
@@ -71,7 +72,10 @@ function loadBannedSites() {
 
 function loadTimeLeft() {
     chrome.storage.local.get(["timeLeft"]).then(data => {
-        timeLeft.innerHTML = data.timeLeft
+        if (data.timeLeft < 0) {
+            timeLeft.innerHTML = 0
+        }
+        else { timeLeft.innerHTML = data.timeLeft }
     })
 }
 

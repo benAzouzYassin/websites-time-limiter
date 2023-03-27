@@ -64,7 +64,7 @@ async function checkCurrent(currentUrl, id) {
                         } catch (err) { }
 
                     }
-                }, 1000)
+                }, 60000)
             } else {
                 try {
                     chrome.tabs.remove(id, () => {
@@ -75,3 +75,16 @@ async function checkCurrent(currentUrl, id) {
         })
     }
 }
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+    for (let key in changes) {
+        if (key === "bannedSites") {
+            chrome.tabs.query({ active: true }).then(data => {
+                chrome.tabs.remove(data[0].id, () => {
+                    console.log('')
+                })
+                chrome.tabs.create({ url: data[0].url });
+
+            })
+        }
+    }
+});
