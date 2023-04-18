@@ -4,9 +4,8 @@ chrome.tabs.onCreated.addListener(function (tab) {
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, updatedTab) {
         if (changeInfo.status == "loading" && changeInfo.url) {
             checkCurrent(changeInfo.url, tabId)
+            console.log("checking")
         }
-
-
     });
 });
 
@@ -28,11 +27,21 @@ chrome.windows.onCreated.addListener(function () {
         })
 })
 
+function extractDomainName(url) {
+    // Remove any protocol and www from the URL
+    let domain = url.replace(/(^\w+:|^)\/\/(www\.)?/, '');
+
+    // Remove any path or query parameters
+    domain = domain.split('/')[0];
+
+    return domain;
+}
 
 function isBanned(url, bannedUrls) {
     let banned = false
+
     bannedUrls.forEach(element => {
-        if (url.startsWith(element)) {
+        if (extractDomainName(url) === element) {
             banned = true
         }
     });
@@ -43,25 +52,24 @@ function isBanned(url, bannedUrls) {
 async function checkCurrent(currentUrl, id) {
     const data = await chrome.storage.local.get(["bannedSites"]) ?? []
     const bannedUrls = await data.bannedSites
-
     if (isBanned(currentUrl, bannedUrls)) {
         //starting timer or closing the tab
         chrome.storage.local.get(["timeLeft"]).then(data => {
             if (data.timeLeft && data.timeLeft > 0) {
                 const intervaleId = setInterval(() => {
                     chrome.tabs.query({ active: true, highlighted: true }).then(tabs => {
-                        if (tabs[0].id == id) {
+                        if (tabs[0].id == id && isBanned(tabs[0].url, bannedUrls)) {
                             data.timeLeft--
                             chrome.storage.local.set({ "timeLeft": data.timeLeft })
                         }
                     })
-                    if (data.timeLeft <= 0) {
+                    if (data.timeLeft <= 2) {
                         try {
                             chrome.tabs.remove(id, () => {
                                 console.log('')
                             })
                             clearInterval(intervaleId)
-                        } catch (err) { }
+                        } catch (err) { clearInterval(intervaleId) }
 
                     }
                 }, 60000)

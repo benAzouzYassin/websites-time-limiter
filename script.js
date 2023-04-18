@@ -12,6 +12,17 @@ body.onload = () => {
     });
 
 }
+
+function extractDomainName(url) {
+    // Remove any protocol and www from the URL
+    let domain = url.replace(/(^\w+:|^)\/\/(www\.)?/, '');
+
+    // Remove any path or query parameters
+    domain = domain.split('/')[0];
+
+    return domain;
+}
+
 //saves time limit taken from user
 saveBtn.onclick = () => {
     initialTime.innerHTML = timeLimit.value
@@ -27,8 +38,9 @@ async function blockCurrent() {
     const currentUrl = tabs[0].url;
     const data = await chrome.storage.local.get("bannedSites")
     let bannedSites = data.bannedSites ?? []
-    if (bannedSites.indexOf(currentUrl) === -1 && !currentUrl.startsWith("chrome:")) {
-        bannedSites.push(currentUrl)
+    if (bannedSites.indexOf(extractDomainName(currentUrl)) === -1 && !currentUrl.startsWith("chrome:")) {
+
+        bannedSites.push(extractDomainName(currentUrl))
         chrome.storage.local.set({ "bannedSites": bannedSites })
         chrome.tabs.reload(tabs[0].id);
     }
