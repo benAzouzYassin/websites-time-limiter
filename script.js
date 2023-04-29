@@ -129,20 +129,44 @@ function formatTime(seconds) {
 function updateTimeLeftUi(time) {
     const [oldHours, oldMinutes, oldSeconds] = timeLeft.innerText.split(":")
     const [hours, minutes, seconds] = formatTime(parseInt(time))
-    if (oldHours != hours) {
-        timeLeftHours.innerHTML = hours
+    if (oldHours.replace("\n", "").substring(0, 2) != oldHours.substring(0, 2)) {
+        setTimeout(() => timeLeftHours.className = "transition-down", 300)
+        setTimeout(() => {
+            timeLeftHours.className = "none"
+            timeLeftHours.innerHTML = hours
+            timeLeftHours.className = "transition-above"
+        }, 700)
 
     }
-    if (oldMinutes != minutes) {
-        timeLeftMinutes.innerHTML = minutes
-        console.log(oldMinutes.length, minutes.length)
-    }
-    if (oldSeconds != seconds) {
+
+    if (oldMinutes.replace("\n", "").substring(0, 2) != minutes.substring(0, 2)) {
         setTimeout(() => timeLeftSeconds.className = "transition-down", 300)
         setTimeout(() => {
-            timeLeftSeconds.className = "none"
-            timeLeftSeconds.innerHTML = seconds
-            timeLeftSeconds.className = "transition-above"
+            timeLeftMinutes.className = "none"
+            timeLeftMinutes.innerHTML = minutes
+            timeLeftMinutes.className = "transition-above"
         }, 700)
     }
+
+    const [seconds1, seconds2] = seconds.split("")
+    const [oldSeconds1, oldSeconds2] = oldSeconds.replace("\n", "").split("")
+    if (oldSeconds1 != seconds1) {
+        setTimeout(() => timeLeftSeconds1.className = "transition-down", 300)
+        setTimeout(() => {
+            timeLeftSeconds1.className = "none"
+            timeLeftSeconds1.innerHTML = seconds1
+            timeLeftSeconds1.className = "transition-above"
+        }, 700)
+
+    }
+    if (oldSeconds2 != seconds2) {
+        setTimeout(() => timeLeftSeconds2.className = "transition-down", 300)
+        setTimeout(() => {
+            timeLeftSeconds2.className = "none"
+            timeLeftSeconds2.innerHTML = seconds2
+            timeLeftSeconds2.className = "transition-above"
+        }, 700)
+
+    }
+
 }
