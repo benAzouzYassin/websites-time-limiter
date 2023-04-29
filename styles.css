@@ -24,3 +24,83 @@ h1 {
   display: flex;
   flex-direction: row;
 }
+body {
+  font-family: system-ui;
+  background: #121516;
+  color: white;
+}
+
+#timeLeft {
+  display: flex;
+  font-size: 72px;
+  font-weight: 600;
+}
+
+.transition-down {
+  transition: all ease 1s;
+  animation: drop-down ease 0.5s;
+}
+
+@keyframes drop-down {
+  0% {
+    transform: translateY(0.5rem);
+  }
+
+  20% {
+    transform: translateY(1rem);
+  }
+
+  40% {
+    transform: translateY(1.5rem);
+  }
+
+  60% {
+    transform: translateY(2rem);
+  }
+
+  80% {
+    transform: translateY(2.5rem);
+  }
+
+  100% {
+    transform: translateY(0rem);
+    opacity: 0;
+    display: none;
+  }
+}
+
+.none {
+  display: none;
+  transform: translateY(-2rem);
+}
+
+.transition-above {
+  transition: all ease 1s;
+  animation: drop-above ease 0.5s;
+}
+
+@keyframes drop-above {
+  0% {
+    transform: translateY(-2rem);
+  }
+
+  20% {
+    transform: translateY(-1.75rem);
+  }
+
+  40% {
+    transform: translateY(-1.5rem);
+  }
+
+  60% {
+    transform: translateY(-1rem);
+  }
+
+  80% {
+    transform: translateY(-0.5rem);
+  }
+
+  100% {
+    transform: translateY(0rem);
+  }
+}

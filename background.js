@@ -72,7 +72,7 @@ function startTimer(timeLeft, id, bannedUrls) {
             } catch (err) { clearInterval(intervaleId) }
 
         }
-    }, 60000)
+    }, 1000)
 }
 
 function updateDate() {
