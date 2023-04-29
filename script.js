@@ -2,18 +2,17 @@ body.onload = () => {
     loadBannedSites()
     loadTimeLeft()
     renderTimeLimit()
+    loadTheme()
     chrome.storage.onChanged.addListener(function (changes, namespace) {
         for (let key in changes) {
             if (key === "timeLeft") {
                 let timeToClose = changes[key].newValue;
-
                 updateTimeLeftUi(timeToClose)
-
             }
         }
     });
-
 }
+
 
 //saves time limit taken from user
 saveBtn.onclick = () => {
@@ -79,7 +78,8 @@ function loadBannedSites() {
 function loadTimeLeft() {
     chrome.storage.local.get(["timeLeft"]).then(data => {
         if (data.timeLeft < 0) {
-            timeLeftSeconds.innerHTML = "00"
+            timeLeftSeconds1.innerHTML = "0"
+            timeLeftSeconds2.innerHTML = "0"
             timeLeftMinutes.innerHTML = "00"
             timeLeftHours.innerHTML = "00"
         }
@@ -87,7 +87,8 @@ function loadTimeLeft() {
             const [hours, minutes, seconds] = formatTime(data.timeLeft)
             timeLeftHours.innerHTML = hours
             timeLeftMinutes.innerHTML = minutes
-            timeLeftSeconds.innerHTML = seconds
+            timeLeftSeconds1.innerHTML = seconds[0]
+            timeLeftSeconds2.innerHTML = seconds[1]
 
         }
     })
@@ -126,6 +127,8 @@ function formatTime(seconds) {
 
     return [hours.toString().padStart(2, '0'), minutes.toString().padStart(2, '0'), remainingSeconds.toString().padStart(2, '0')];
 }
+
+
 function updateTimeLeftUi(time) {
     const [oldHours, oldMinutes, oldSeconds] = timeLeft.innerText.split(":")
     const [hours, minutes, seconds] = formatTime(parseInt(time))
@@ -169,4 +172,15 @@ function updateTimeLeftUi(time) {
 
     }
 
+}
+function loadTheme() {
+
+    chrome.storage.local.get(["theme"])
+        .then(data => {
+            if (data.theme === "dark") {
+                body.className = "dark"
+            } else {
+                body.className = "light"
+            }
+        })
 }
