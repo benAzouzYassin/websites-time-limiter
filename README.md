@@ -4,7 +4,8 @@
 #### A Chrome extension that limits the user's time on specific websites.
 
 ## Preview
-![https://github.com/benAzouzYassin/websites-time-limiter/blob/main/readme%20gif.gif]()
+
+![](https://github.com/benAzouzYassin/websites-time-limiter/blob/main/readme%20gif.gif)
 
 
 ## How it works
