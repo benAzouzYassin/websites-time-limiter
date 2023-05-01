@@ -1,15 +1,22 @@
 //update date evrey time opens the browser
 chrome.windows.onCreated.addListener(updateDate)
 
-//check if website is banned or no when a tab is updated
+//check if new tab website is banned 
 chrome.tabs.onCreated.addListener(function (tab) {
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, updatedTab) {
         if (changeInfo.status == "loading" && changeInfo.url) {
+            console.log("cheking this ", tabId)
             checkCurrent(changeInfo.url, tabId)
         }
     });
 });
-
+//checks when a tab is updated
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, updatedTab) {
+    if (changeInfo.status == "loading" && changeInfo.url) {
+        console.log("cheking this ", tabId)
+        checkCurrent(changeInfo.url, tabId)
+    }
+});
 //checking current website is banned and starting the time if it is
 async function checkCurrent(currentUrl, id) {
     const data = await chrome.storage.local.get(["bannedSites"]) ?? []
@@ -36,15 +43,16 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (let key in changes) {
         if (key === "bannedSites") {
             try {
-                chrome.tabs.query({ active: true }).then(data => {
+                chrome.tabs.query({ active: true, highlighted: true }).then(data => {
                     chrome.tabs.remove(data[0].id, () => {
-                        console.log('')
+                        console.log('removed')
                     })
                     chrome.tabs.create({ url: data[0].url });
+                    console.log("back")
 
                 })
             } catch (error) {
-                console.log('')
+                console.log('error idk why')
             }
 
         }

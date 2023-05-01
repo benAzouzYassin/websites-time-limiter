@@ -47,7 +47,6 @@ function unbanUrl(e) {
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
             const toUnbanUrl = e.target.parentNode.innerText.split("\n")[0]
-            console.log(toUnbanUrl)
             const newBannedList = data.bannedSites.filter((value) => {
                 if (value == toUnbanUrl) {
                     return false
@@ -56,7 +55,7 @@ function unbanUrl(e) {
                 }
             })
             chrome.storage.local.set({ "bannedSites": newBannedList })
-            chrome.runtime.reload()
+            // chrome.runtime.reload()
         })
         .catch(err => console.log(err))
 
