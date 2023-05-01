@@ -6,30 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>anti-destraction</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <script src="script.js" defer></script>
+    <script src="theme.js" defer></script>
+
 </head>
 
 <body id="body">
-    <input type="checkbox" hidden="hidden" id="username">
-    <label class="switch" id="themeSwitcher" for="username"></label>
-    <p>intitial time : <span id="initialTime"></span></p>
-    <p>time left :
+    <!--theme switcher-->
+    <input type="checkbox" hidden="hidden" id="theme">
+    <label class="switch" id="themeSwitcher" for="theme"></label>
+
+    <!--timer section-->
+    <span class="timerSecitonText">Time left :</span>
+    <span class="timeLeft">
         <span id="timeLeft">
             <span id="timeLeftHours">00</span>:<span id="timeLeftMinutes">00</span>:<span
                 id="timeLeftSeconds1">0</span><span id="timeLeftSeconds2">0</span>
         </span>
-    </p>
-    <button id="blockBtn">block current website</button>
-    <ul id="blockedSites">
+    </span>
 
-    </ul>
-    <input type="text" placeholder="time limit in minutes" id="timeLimit">
-    <button id="saveBtn">save time limit</button>
-    <h3 id="print">
-        </h1>
-        <script src="theme.js">
+    <hr>
+    <!--changing time limit section-->
+    <p class="initialTimeP">Time limit :</p>
+    <p><span id="initialTime"></span></p>
+    <form id="timeLimitForm" autocomplete="off">
+        <label for="timeLimit"></label>
+        <input class="timeLimitInput" autocomplete="off" type="text" placeholder="Update time limit (in minutes) "
+            id="timeLimit">
+    </form>
 
-        </script>
+    <hr>
+
+    <!-- banned websites list-->
+    <p class="bannedWebsites-section">Banned Websites :</p>
+    <ul id="blockedSites"></ul>
+    <button id="blockBtn">Ban current</button>
 </body>
 
 </html>

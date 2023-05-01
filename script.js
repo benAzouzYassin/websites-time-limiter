@@ -15,11 +15,13 @@ body.onload = () => {
 
 
 //saves time limit taken from user
-saveBtn.onclick = () => {
+timeLimitForm.onsubmit = (e) => {
+    e.preventDefault()
     const timeLimitInSeconds = parseInt(timeLimit.value) * 60
     chrome.storage.local.set({ "timeLimit": timeLimitInSeconds })
     const [hours, minutes, seconds] = formatTime(timeLimitInSeconds)
     initialTime.innerText = `${hours}:${minutes}:${seconds}`
+    timeLimit.value = ""
 }
 //banning current website
 blockBtn.onclick = () => {
@@ -65,7 +67,7 @@ function loadBannedSites() {
     chrome.storage.local.get(["bannedSites"])
         .then((data) => {
             data.bannedSites.forEach((url) => {
-                blockedSites.innerHTML += `<li class="bannedLink">${url}<button class="unbanBtn">delete</button></li>`
+                blockedSites.innerHTML += `<li class="bannedLink" id="bannedLink">${url}<i class="unbanBtn uil uil-multiply"></i></li>`
             })
             const unbanButtons = document.getElementsByClassName("unbanBtn")
             for (let i = 0; i < unbanButtons.length; i++) {
@@ -174,13 +176,12 @@ function updateTimeLeftUi(time) {
 
 }
 function loadTheme() {
-
     chrome.storage.local.get(["theme"])
         .then(data => {
-            if (data.theme === "dark") {
-                body.className = "dark"
-            } else {
+            if (data.theme === "light") {
                 body.className = "light"
+            } else {
+                body.className = "dark"
             }
         })
 }

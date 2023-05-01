@@ -7,18 +7,16 @@ h1 {
   color: white;
   border-radius: 5px;
   padding: 5px;
-  background-color: black;
+  background-color: rgb(171, 50, 50);
   align-self: center;
+  border: 1px solid rgb(171, 50, 50);
 }
 #blockBtn:hover {
   border: 1px solid rgb(171, 50, 50);
   transition: 0.2s ease-in-out;
   cursor: pointer;
   background-color: rgb(171, 50, 50);
-}
-.bannedLink {
-  display: flex;
-  flex-direction: row;
+  transform: scale(105%);
 }
 
 #timeLeft {
@@ -146,4 +144,93 @@ input:checked + .switch::before {
 }
 input:checked + .switch:active::before {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(0, 150, 136, 0.2);
+}
+.timeLeft {
+  justify-content: center;
+  display: flex;
+  color: #db864e;
+}
+
+.timerSecitonText {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+hr {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid gray;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.initialTimeP {
+  margin-top: 0px;
+  font-size: 20px;
+  font-weight: 500;
+}
+p {
+  margin-left: 10px;
+  margin-top: 0px;
+}
+.timeLimitInput {
+  outline: none;
+  border: none;
+  background: none;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  transition: all ease 1s;
+  width: 50%;
+}
+.timeLimitInput--dark {
+  color: white;
+  border-bottom: 1px solid white;
+}
+.timeLimitInput--light {
+  color: black;
+  border-bottom: 1px solid black;
+}
+.timeLimitInput:focus {
+  transition: all ease 1s;
+  width: 90%;
+}
+
+#initialTime {
+  font-size: 30px;
+  width: 100%;
+  display: flex;
+  margin-top: -10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.bannedWebsites-section {
+  font-size: 22px;
+  font-weight: 500;
+}
+.bannedLink {
+  background-color: #3d474d;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-size: medium;
+  color: white;
+}
+ul {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.unbanBtn {
+  margin-left: auto;
+}
+.unbanBtn:hover {
+  cursor: pointer;
+  background-color: darkred;
 }
