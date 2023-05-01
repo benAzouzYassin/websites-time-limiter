@@ -52,7 +52,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 
                 })
             } catch (error) {
-                console.log('error idk why')
+                console.log('')
             }
 
         }

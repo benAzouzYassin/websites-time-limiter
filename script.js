@@ -179,8 +179,12 @@ function loadTheme() {
         .then(data => {
             if (data.theme === "light") {
                 body.className = "light"
+                timeLimit.className = "timeLimitInput--light timeLimitInput"
+
             } else {
                 body.className = "dark"
+                timeLimit.className = "timeLimitInput--dark timeLimitInput"
+
             }
         })
 }
