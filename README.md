@@ -4,6 +4,7 @@
 #### A Chrome extension that limits the user's time on specific websites.
 
 ## Preview
+![Uploading readme gif.gif…]()
 
 
 ## How it works
