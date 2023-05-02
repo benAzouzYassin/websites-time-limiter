@@ -55,7 +55,7 @@ function unbanUrl(e) {
                 }
             })
             chrome.storage.local.set({ "bannedSites": newBannedList })
-            // chrome.runtime.reload()
+            //  chrome.runtime.reload()
         })
         .catch(err => console.log(err))
 
