@@ -4,7 +4,8 @@
 #### A Chrome extension that limits the user's time on specific websites.
 
 ## Preview
-![Uploading readme gif.gif…]()
+
+![](https://github.com/benAzouzYassin/websites-time-limiter/blob/main/readme%20gif.gif)
 
 
 ## How it works
@@ -16,7 +17,7 @@
 
 ## How to use
 
-* Install the extension file from here or clone this repositorie.
+* Install the extension file from <a href="https://github.com/benAzouzYassin/websites-time-limiter/archive/refs/heads/main.zip">here</a> or clone this repositorie.
 
 * Open the Google Chrome web browser on your computer.
 
