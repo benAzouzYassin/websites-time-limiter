@@ -6,7 +6,7 @@ h1 {
   width: 100px;
   color: white;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
   background-color: rgb(171, 50, 50);
   align-self: center;
   border: 1px solid rgb(171, 50, 50);
@@ -106,6 +106,8 @@ body {
   display: flex;
   flex-direction: column;
   width: 400px;
+  border-radius: 10px;
+  padding-bottom: 15px;
 }
 .switch {
   display: inline-block;
